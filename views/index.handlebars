@@ -18,27 +18,4 @@
 
 </form>
 
-{{!-- from example CatAppp use public/assets/js/cat.js to write out JS  --}}
 
-<script type="text/javascript" >
-  $(function(){
-    $(".create-form").on("click", function(event){
-      //so the form doesnt reset for no reason
-      event.preventDefault();
-
-      var newBurger = {
-        name: $("#burg").val().trim(),
-        devoured: false; 
-      };
-
-      $.ajax("/api/burgers", {
-        type: "POST",
-        data: newBurger
-      }).then(function(){
-        console.log("created BURGER");
-        location.reload();
-      }) 
-
-    })// end of .create-form
-  }) // end of oriignal function
-</script>
