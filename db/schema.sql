@@ -4,7 +4,7 @@ CREATE DATABASE burger_db;
 
 USE burger_db;
 
-CREATE TABLE burgers (
+CREATE TABLE burger (
     id INTEGER(10) AUTO_INCREMENT NOT NULL,
     burger_name VARCHAR (45) NULL,
     devoured BOOLEAN,

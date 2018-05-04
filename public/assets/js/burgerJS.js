@@ -7,11 +7,17 @@ $(function(){
             devour: newDevour
         };
 
-        $.ajax("/api/burgers" + id, {
-            type: "PUT"
-        })
+        $.ajax("/api/burger" + id, {
+            type: "PUT",
+            data: newDevourState
+        }).then(
+          function() {
+            console.log("changed devour to", newDevourState);
+            location.reload();
+          }
+        );
 
-    })//.change-devour
+    });//.change-devour
 
 
 
@@ -24,13 +30,13 @@ $(function(){
         devoured: false 
       };
 
-      $.ajax("/api/burgers", {
+      $.ajax("/api/burger", {
         type: "POST",
         data: newBurger
       }).then(function(){
         console.log("created BURGER");
         location.reload();
-      }) 
+      }) ;
 
-    })// end of .create-form
-  }) // end of oriignal function
+    });// end of .create-form
+  }); // end of oriignal function
