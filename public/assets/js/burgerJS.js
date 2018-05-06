@@ -40,3 +40,5 @@ $(function(){
 
     });// end of .create-form
   }); // end of oriignal function
+
+  console.log("BurgerJS.js");

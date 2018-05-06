@@ -1,4 +1,16 @@
-var connection = require('./connection');
+var connection = require('../config/connection');
+
+
+//=================================================================================
+// probably location of error
+//=================================================================================
+function printQuestionMarks(num) {
+    var arr = []
+    for (var i = 0; i <num; i++){
+        arr.push("?");
+    }
+    return arr.toString();
+}
 
 
 // Helper function to convert object key/value pairs to sql 
@@ -22,13 +34,14 @@ function objToSql(ob){
     return arr.toString();
 } // objtosql
 
-let orm = {
-    selectAll: function(tableInput, cb) {
-        var queryString = "SELECT * FROM " + tableInput + ";";
+var orm = {
+    selectAll: function(table, cb) {
+        var queryString = "SELECT * FROM " + table + ";";
+
         connection.query(queryString, function(err, result){
-            if (err) {
-                throw err;
-            }
+            if (err) throw err;
+            cb(result);
+            
         });
 
     }, //selectall
@@ -46,24 +59,40 @@ let orm = {
         console.log(queryString);
 
         connection.query(queryString, vals, function(err, result){
-            if(err){
-                throw err;
-            }
+            if(err) throw err;
             cb(result);
         });
     }, //create
 
-    delete: function(table, condition, cb) {
-        var queryString = "DELETE FROM ??";
-        queryString += "WHERE ?";
+    update: function(table, objColVals, condition, cb) {
+        var queryString = "UPDATE " +table; 
 
-        conneciton.query(queryString, [table, condition ], function(err, result){
-            if (err){
-                throw err;
-            }
+        queryString += " SET ";
+        queryString += objToSql(objColVals);
+        queryString += " WHERE ";
+        queryString += condition;
+
+        console.log (queryString);
+
+        connection.query(queryString, function(err, result){
+            if (err) throw err;
+            cb(result);
+        })
+    }, // update  
+
+    delete: function(table, condition, cb) {
+        var queryString = "DELETE FROM" + table;
+        queryString += "WHERE ";
+        queryString += condition; 
+
+        conneciton.query(queryString, function(err, result){
+            if (err) throw err;
             cb(result);
         });
-    } //updateOne
+    } //delete
 }; // orm
 
+
 module.exports = orm;
+
+console.log(orm);

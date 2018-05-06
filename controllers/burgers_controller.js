@@ -20,15 +20,15 @@ router.get('/', function( req, res){
     });
 });
 
-// router.create("/api/burgers", function(req, res){
-//     burger.create([
-//         "name", "devoured"
-//     ], [
-//         req.body.name, req.body.devoured
-//     ], function(result){
-//         res.json({ id: result.insertId});
-//     });
-// });
+router.post("/api/burger",function(req,res ){
+    burger.create([
+        "name", "devoured"
+    ], [
+        req.body.name, req.body.devoured
+    ], function(reseult){
+        
+    })
+})
 
 router.put("/api/burger/:id", function(req, res){
     var condition = 'id = ' + req.params.id;
@@ -58,7 +58,7 @@ router.delete("/api/burger/:id", function(req, res){
             res.status(202).end();
         }
     } )
-})//.delete
+});//.delete
 
 
 module.exports = router;

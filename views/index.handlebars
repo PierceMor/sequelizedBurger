@@ -1,31 +1,37 @@
 {{!-- This will be where we add our burgers  --}}
+<header>Eat Burgers</header>
 
-<h1>DA BURGERS</h1>
+<section class"container">
+  <div class="container" >
+    <ul>
+      {{#each burger}}
+        {{#unless devoured}}
+      <button class="delete-burger" data-id="{{this.id}}"> EAT IT </button>
+        {{/unless}}
+      {{/each}}
+    </ul>
 
-<ul>
-  {{#each burger}}
-    {{#unless devoured}}
-  <button class="delete-burger" data-id="{{this.id}}"> EAT IT </button>
-    {{/unless}}
-  {{/each}}
-</ul>
+    <ul>
+      {{#each burger}}
+        {{#if devoured}}
+      <button class="delete-burger" data-id="{{this.id}}"> EAT IT </button>
+        {{/if}}
+      {{/each}}
+    </ul>
 
-<ul>
-  {{#each burger}}
-    {{#if devoured}}
-  <button class="delete-burger" data-id="{{this.id}}"> EAT IT </button>
-    {{/if}}
-  {{/each}}
-</ul>
+    <h2>MAKE DA BURGERS</h2>
+    <form id="create-form">
 
-<h2>MAKE DA BURGERS</h2>
-<form id="create-form">
+      <div class= "form-group" >
+        <label for="burg"> BURGER TYPE</label>
+        <input type="text" id="burger" name="burger">
+      </div>
+      <button type="submit">Add burger</button>
+    </form>
 
-  <div class= "form-group" >
-    <label for="burg"> BURGER TYPE</label>
-    <input type="text" id="burger" name="burger">
   </div>
-  <button type="submit">Add burger</button>
-</form>
+</section>
 
-
+<script type="text/javascript" >
+console.log("index");
+</script>
