@@ -1,44 +1,57 @@
 $(function(){
-    $(".change-devour").on("click", function(event){
-        var id = $(this).data("id");
-        var newDevour = $(this).data("newDevour");
 
-        var newDevourState = {
-            devour: newDevour
-        };
+  $(".change-devoured").on("click",function(){
+      var id = $(this).data("id");
+      var newDevour = $(this).data("newdevoured");
 
-        $.ajax("/api/burger" + id, {
-            type: "PUT",
-            data: newDevourState
-        }).then(
+      var newDevourState = {
+        devoured: newDevour
+      };
+      
+      // send the PUT REQUEST 
+      $.ajax("/api/burger/" + id, {
+          type: "PUT",
+          data: newDevourState
+        } ).then(
           function() {
-            console.log("changed devour to", newDevourState);
+            console.log("changed devour state", newDevour);
             location.reload();
           }
         );
+  });///change-devoured
 
-    });//.change-devour
+  $(".create-form").on("click",function (event){
+    event.preventDefault();
 
-
-
-    $(".create-form").on("click", function(event){
-      //so the form doesnt reset for no reason
-      event.preventDefault();
-
-      var newBurger = {
-        name: $("#burg").val().trim(),
-        devoured: false 
+    var newBurger = {
+        name: $("#ca").val().trim(),
+        devoured: $("[name=devoured]:checked").val().trim()
       };
 
-      $.ajax("/api/burger", {
+    // send the fucking post request
+    $.ajax("/api/burger", {
         type: "POST",
         data: newBurger
-      }).then(function(){
-        console.log("created BURGER");
-        location.reload();
-      }) ;
+      }).then(
+        function() {
+          console.log("created new Burger");
+          location.reload();
+        }
+      );
+  }); // create form
 
-    });// end of .create-form
-  }); // end of oriignal function
+  $(".delete-burger").on("click", function(){
+      var id = $(this).data("id");
 
-  console.log("BurgerJS.js");
+      $.ajax("/api/burger/" + id, {
+        type: "DELETE",
+      }).then(
+        function() {
+          console.log("deleted BURGER", id);
+          location.reload();
+        }
+      );
+  }); // delete-burgers
+}); // beginning
+
+console.log(error);
