@@ -1,5 +1,5 @@
 var app = require('express');
-var burger = require('../models/burger');
+var burger = require('../models/burger.js');
 
 var router = app.Router();
 
@@ -21,23 +21,20 @@ router.get('/', function( req, res){
 });
 
 router.post("/api/burger",function(req,res ){
-    burger.create([
-        "name", "devoured"
-    ], [
-        req.body.name, req.body.devoured
-    ], function(reseult){
-        
-    })
-})
+    burger.post(req.body.burger, function (result){
+        res.json({ id:res.insertid });
+    });
+    console.log("create-controller");
+});
 
 router.put("/api/burger/:id", function(req, res){
     var condition = 'id = ' + req.params.id;
 
     console.log('conition', condition);
 
-    burger.update({
-        devoured: req.body.devoured
-    }, condition, function(result){
+    burger.put({
+        devoured: true
+    }, condition, function(res){
         if (result.changedRows == 0){
             return res.status(404).end();
         } else {
@@ -51,7 +48,7 @@ router.delete("/api/burger/:id", function(req, res){
 
     console.log( "condition", condition);
 
-    burger.delete( condition, function(result){
+    burger.deleting( condition, function(result){
         if (result.changedRows == 0) {
             return res.status(404).end();
         } else {

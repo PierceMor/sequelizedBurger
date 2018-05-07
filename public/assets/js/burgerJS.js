@@ -1,8 +1,8 @@
 $(function(){
 
-  $(".change-devoured").on("click",function(){
+  $(".change-devoured").on("click",function(event){
       var id = $(this).data("id");
-      var newDevour = $(this).data("newdevoured");
+      var newDevour = $(this).data("devoured");
 
       var newDevourState = {
         devoured: newDevour
@@ -20,12 +20,12 @@ $(function(){
         );
   });///change-devoured
 
-  $(".create-form").on("click",function (event){
+  $(".create-burger").on("submit",function (event){
     event.preventDefault();
 
     var newBurger = {
         name: $("#ca").val().trim(),
-        devoured: $("[name=devoured]:checked").val().trim()
+        devoured: 0
       };
 
     // send the fucking post request
@@ -34,13 +34,13 @@ $(function(){
         data: newBurger
       }).then(
         function() {
-          console.log("created new Burger");
           location.reload();
         }
       );
+      console.log("create-burgerJS.js")
   }); // create form
 
-  $(".delete-burger").on("click", function(){
+  $(".delete-burger").on("click", function(event){
       var id = $(this).data("id");
 
       $.ajax("/api/burger/" + id, {

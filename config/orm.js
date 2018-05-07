@@ -1,4 +1,4 @@
-var connection = require('../config/connection');
+var connection = require('./connection');
 
 
 //=================================================================================
@@ -43,50 +43,46 @@ var orm = {
             cb(result);
             
         });
-
     }, //selectall
 
-    create: function(table, cols, vals, cb) {
+    post: function(table, cols, vals, cb) {
         var queryString = "INSERT INTO " + table;
-
+    
         queryString += " (";
         queryString += cols.toString();
         queryString += ") ";
         queryString += "VALUES (";
         queryString += printQuestionMarks(vals.length);
-        queryString += ") ";
-
+        queryString += "); ";
+    
         console.log(queryString);
-
-        connection.query(queryString, vals, function(err, result){
-            if(err) throw err;
-            cb(result);
+    
+        connection.query(queryString, vals, function(err, result) {
+          if (err) {
+            throw err;
+          }
+    
+          cb(result);
         });
-    }, //create
+      }, //create
 
-    update: function(table, objColVals, condition, cb) {
-        var queryString = "UPDATE " +table; 
-
-        queryString += " SET ";
-        queryString += objToSql(objColVals);
-        queryString += " WHERE ";
-        queryString += condition;
+    put: function(table, objColVals, condition, cb) {
+        var queryString = `UPDATE ${table} SET ${objColVals} WHERE ${condition} ;`; 
 
         console.log (queryString);
 
         connection.query(queryString, function(err, result){
-            if (err) throw err;
+            if (err){ throw err;}
             cb(result);
-        })
+        });
     }, // update  
 
-    delete: function(table, condition, cb) {
-        var queryString = "DELETE FROM" + table;
-        queryString += "WHERE ";
-        queryString += condition; 
+    deleting: function(table, condition, cb) {
+        var queryString = `DELETE FROM ${table} WHERE ${condition};`;
 
-        conneciton.query(queryString, function(err, result){
-            if (err) throw err;
+
+        connection.query(queryString, function(err, result){
+            if (err){ throw err;}
             cb(result);
         });
     } //delete
@@ -95,4 +91,3 @@ var orm = {
 
 module.exports = orm;
 
-console.log(orm);

@@ -6,18 +6,19 @@ var burger = {
             cb(res);
         });
     },
-    create: function(cols, vals, cb){
-        orm.create("burger", cols,  vals, function(res){
+    post: function(cols, vals, cb){
+        orm.post('burger', cols,  vals, function(res){
+            cb(res);
+            console.log("create-model");
+        });
+    },
+    put: function(objColVals, condition, cb){
+        orm.put('burger', objColVals, condition, function(res){
             cb(res);
         });
     },
-    update: function(objColVals, condition, cb){
-        orm.update("burger", objColVals, condition, function(res){
-            cb(res);
-        });
-    },
-    delete: function(condition, cb){
-        orm.delete("burger",condition, function(res){
+    deleting: function(condition, cb){
+        orm.deleting('burger',condition, function(res){
             cb(res);
         });
     }
