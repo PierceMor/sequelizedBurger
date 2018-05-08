@@ -55,21 +55,24 @@ var orm = {
             throw err;
             console.log(err);
           }
-    
           cb(result);
-
-        
         });
       }, //create
 
+      //function that will change the status 
     put: function(table, selected, cb) {
-        var queryString = "UPDATE " + table + " SET devoured: true WHERE " + selected + ";"; 
+        var queryString = "UPDATE " + table + " SET devoured = true WHERE " + selected + ";"; 
 
         console.log (queryString);
 
         connection.query(queryString, function(err, result){
-            if (err){ throw err;}
-            cb(result);
+            if (err){ 
+                throw err;
+            }
+            if (cb) {
+                cb(result);
+            }
+            
         });
     }, // update  
 
@@ -78,7 +81,9 @@ var orm = {
 
 
         connection.query(queryString, function(err, result){
-            if (err){ throw err;}
+            if (err){ 
+                throw err;
+            }
             if (cb) {
                 cb(result)
             }

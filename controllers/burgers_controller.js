@@ -3,13 +3,7 @@ var router = app.Router();
 
 var burger = require('../models/burger.js');
 
-
-
-
-//Create the router for the app, and export the router at the end of your file.
-// This will connect the 
-
-
+/// gathers all information regarding burgers 
 router.get('/', function( req, res){
     burger.selectAll(function(data){
         var hbsObjext = {
@@ -17,10 +11,10 @@ router.get('/', function( req, res){
         };
         console.log(hbsObjext);
         res.render('index', hbsObjext);
-
     });
 });
 
+// creates the burger
 router.post("/api/burger",function(req,res ){
     burger.post(req.body.name, function (result){
         res.json({ id:result.insertid });
@@ -28,13 +22,21 @@ router.post("/api/burger",function(req,res ){
     });
 });
 
+// changes the burger 
 router.put("/api/burger/:id", function(req, res){
-    burger.put(req, function(result){
-        res.json({id:result.insertid});
-    });
 
+    var condition = " id =" + req.params.id;
+
+    burger.put(condition, function(result){
+        if (result.changedRows == 0) {
+            return res.status(404).end();
+        } else {
+            res.status(202).end();
+        }
+    });
 });// .put
 
+// deeletes the burger 
 router.delete("/api/burger/:id", function(req, res){
     var condition = " id = " + req.params.id;
 

@@ -11,9 +11,10 @@ $(function(){
           function() {
             console.log("changed devour state");
             location.reload();
+            console.log(this);
+
           }
         );
-        console.log("JS touched");
   });///change-devoured
 
   $(".create-burger").on("submit",function (event){
