@@ -1,4 +1,4 @@
-var orm = require("../config/orm");
+var orm = require("../config/orm.js");
 
 var burger = {
     selectAll: function(cb) {
@@ -6,8 +6,8 @@ var burger = {
             cb(res);
         });
     },
-    post: function(cols, vals, cb){
-        orm.post('burger', cols,  vals, function(res){
+    post: function(cols, val, cb){
+        orm.post('burger', cols,  val, function(res){
             cb(res);
             console.log("create-model");
         });

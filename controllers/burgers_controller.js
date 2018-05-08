@@ -1,7 +1,8 @@
 var app = require('express');
+var router = app.Router();
+
 var burger = require('../models/burger.js');
 
-var router = app.Router();
 
 
 
@@ -40,8 +41,8 @@ router.put("/api/burger/:id", function(req, res){
         } else {
             res.status(200).end();
         }
-    }) //.update
-})// .put
+    }); //.update
+});// .put
 
 router.delete("/api/burger/:id", function(req, res){
     var condition = " id = " + req.params.id;
@@ -54,7 +55,7 @@ router.delete("/api/burger/:id", function(req, res){
         } else {
             res.status(202).end();
         }
-    } )
+    } );
 });//.delete
 
 

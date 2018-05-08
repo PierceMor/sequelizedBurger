@@ -37,7 +37,6 @@ $(function(){
           location.reload();
         }
       );
-      console.log("create-burgerJS.js")
   }); // create form
 
   $(".delete-burger").on("click", function(event){
@@ -54,4 +53,3 @@ $(function(){
   }); // delete-burgers
 }); // beginning
 
-console.log(error);
