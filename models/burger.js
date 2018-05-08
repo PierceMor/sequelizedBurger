@@ -9,16 +9,16 @@ var burger = {
     post: function(value, cb){
         orm.post('burger', 'name',  value, function(res){
             cb(res);
-            console.log("create-model");
         });
     },
-    put: function(objColVals, condition, cb){
-        orm.put('burger', objColVals, condition, function(res){
+    put: function(selected, cb){
+        orm.put('burger', selected,  function(res){
             cb(res);
+            console.log("omdels touched");
         });
     },
-    deleting: function(condition, cb){
-        orm.deleting('burger',condition, function(res){
+    deleting: function(selected, cb){
+        orm.deleting('burger', selected, function(res){
             cb(res);
         });
     }

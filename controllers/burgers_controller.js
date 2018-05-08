@@ -29,19 +29,9 @@ router.post("/api/burger",function(req,res ){
 });
 
 router.put("/api/burger/:id", function(req, res){
-    var condition = 'id = ' + req.params.id;
-
-    console.log('conition', condition);
-
-    burger.put({
-        devoured: true
-    }, condition, function(res){
-        if (result.changedRows == 0){
-            return res.status(404).end();
-        } else {
-            res.status(200).end();
-        }
-    }); //.update
+    burger.put(req, function(result){
+        res.json({id:result.insertid});
+    });
 
 });// .put
 

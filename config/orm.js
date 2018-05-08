@@ -62,24 +62,26 @@ var orm = {
         });
       }, //create
 
-    put: function(table, objColvals, condition, cb) {
-        var queryString = "UPDATE ?? SET ? WHERE ? ;"; 
+    put: function(table, selected, cb) {
+        var queryString = "UPDATE " + table + " SET devoured: true WHERE " + selected + ";"; 
 
         console.log (queryString);
 
-        connection.query(queryString, [table, objColvalues, condition], function(err, result){
+        connection.query(queryString, function(err, result){
             if (err){ throw err;}
             cb(result);
         });
     }, // update  
 
-    deleting: function(table, condition, cb) {
-        var queryString = "DELETE FROM ?? WHERE ?;";
+    deleting: function(table, selected, cb) {
+        var queryString = "DELETE FROM " + table + " WHERE " + selected + ";";
 
 
-        connection.query(queryString, [table, condition], function(err, result){
+        connection.query(queryString, function(err, result){
             if (err){ throw err;}
-            cb(result);
+            if (cb) {
+                cb(result)
+            }
         });
     } //delete
 }; // orm

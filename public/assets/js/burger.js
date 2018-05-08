@@ -2,33 +2,29 @@ $(function(){
 
   $(".change-devoured").on("click",function(event){
       var id = $(this).data("id");
-      var newDevour = $(this).data("devoured");
-
-      var newDevourState = {
-        devoured: newDevour
-      };
       
       // send the PUT REQUEST 
       $.ajax("/api/burger/" + id, {
           type: "PUT",
-          data: newDevourState
+          data: id
         } ).then(
           function() {
-            console.log("changed devour state", newDevour);
+            console.log("changed devour state");
             location.reload();
           }
         );
+        console.log("JS touched");
   });///change-devoured
 
   $(".create-burger").on("submit",function (event){
     event.preventDefault();
 
    var name = $("input#ca").val().trim();
-   var devoured = 0;
+   var devoured = "0";
    var newBurger = {
      name,
         devoured
-   }
+   };
 
     // send the fucking post request
     $.ajax("/api/burger", {
