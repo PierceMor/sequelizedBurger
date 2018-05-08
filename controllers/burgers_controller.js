@@ -22,10 +22,10 @@ router.get('/', function( req, res){
 });
 
 router.post("/api/burger",function(req,res ){
-    burger.post(req.body.burger, function (result){
-        res.json({ id:res.insertid });
+    burger.post(req.body.name, function (result){
+        res.json({ id:result.insertid });
+        console.log(req.body.burger)
     });
-    console.log("create-controller");
 });
 
 router.put("/api/burger/:id", function(req, res){
@@ -42,6 +42,7 @@ router.put("/api/burger/:id", function(req, res){
             res.status(200).end();
         }
     }); //.update
+
 });// .put
 
 router.delete("/api/burger/:id", function(req, res){

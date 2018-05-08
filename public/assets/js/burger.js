@@ -23,10 +23,12 @@ $(function(){
   $(".create-burger").on("submit",function (event){
     event.preventDefault();
 
-    var newBurger = {
-        name: $("#ca").val().trim(),
-        devoured: 0
-      };
+   var name = $("input#ca").val().trim();
+   var devoured = 0;
+   var newBurger = {
+     name,
+        devoured
+   }
 
     // send the fucking post request
     $.ajax("/api/burger", {

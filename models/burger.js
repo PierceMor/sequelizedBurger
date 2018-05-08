@@ -6,8 +6,8 @@ var burger = {
             cb(res);
         });
     },
-    post: function(cols, val, cb){
-        orm.post('burger', cols,  val, function(res){
+    post: function(value, cb){
+        orm.post('burger', 'name',  value, function(res){
             cb(res);
             console.log("create-model");
         });
