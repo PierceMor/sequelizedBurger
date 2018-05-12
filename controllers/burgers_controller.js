@@ -1,48 +1,47 @@
 var app = require('express');
 var router = app.Router();
 
-var burger = require('../models/burger.js');
+var db = require('../models');
 
-/// gathers all information regarding burgers 
+/// gathers all information regarding burger 
 router.get('/', function( req, res){
-    burger.selectAll(function(data){
-        var hbsObjext = {
-            burger: data
-        };
-        console.log(hbsObjext);
-        res.render('index', hbsObjext);
+   db.burgers.findAll().then(function(data){
+    var hbsObjext = {
+        burger: data
+    };
+    
+    res.render('index', hbsObjext);
     });
 });
 
 // creates the burger
-router.post("/api/burger",function(req,res ){
-    burger.post(req.body.name, function (result){
-        res.json({ id:result.insertid });
-        console.log(req.body.burger)
-    });
-});
+router.post("/api/burgers",function(req,res ){
+    
+    db.burgers.create(
+        req.body
+    )});
 
 // changes the burger 
-router.put("/api/burger/:id", function(req, res){
+router.put("/api/burgers/:id", function(req, res){
 
     var condition = " id =" + req.params.id;
 
-    burger.put(condition, function(result){
-        if (result.changedRows == 0) {
-            return res.status(404).end();
-        } else {
-            res.status(202).end();
+    db.burgers.update( 
+        req.body,
+        {
+        where: {
+            id: req.params.id
         }
     });
 });// .put
 
 // deeletes the burger 
-router.delete("/api/burger/:id", function(req, res){
+router.delete("/api/burgers/:id", function(req, res){
     var condition = " id = " + req.params.id;
 
     console.log( "condition", condition);
 
-    burger.deleting( condition, function(result){
+    db.burgers.destroy( condition, function(result){
         if (result.changedRows == 0) {
             return res.status(404).end();
         } else {

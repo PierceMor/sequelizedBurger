@@ -1,26 +1,25 @@
-var orm = require("../config/orm.js");
-
-var burger = {
-    selectAll: function(cb) {
-        orm.selectAll('burger', function(res){
-            cb(res);
-        });
+module.exports = function(sequelize, DataTypes){
+    var burgers = sequelize.define("burgers",{
+        name: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            validate: 
+            {
+                len: [1,140]
+            }
+        },
+        devoured: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false
+        }
+        
     },
-    post: function(value, cb){
-        orm.post('burger', 'name',  value, function(res){
-            cb(res);
-        });
-    },
-    put: function(selected, cb){
-        orm.put('burger', selected,  function(res){
-            cb(res);
-            console.log("omdels touched");
-        });
-    },
-    deleting: function(selected, cb){
-        orm.deleting('burger', selected, function(res){
-            cb(res);
-        });
-    }
-};
-module.exports = burger;
+{
+    freezeTableName: true,
+    tableName: "burgers"
+},
+{
+    timestamps: false
+});
+    return burgers;
+};//moudle.exports 

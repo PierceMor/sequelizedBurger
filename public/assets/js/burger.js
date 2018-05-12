@@ -4,7 +4,7 @@ $(function(){
       var id = $(this).data("id");
       
       // send the PUT REQUEST 
-      $.ajax("/api/burger/" + id, {
+      $.ajax("/api/burgers/" + id, {
           type: "PUT",
           data: id
         } ).then(
@@ -17,20 +17,20 @@ $(function(){
         );
   });///change-devoured
 
-  $(".create-burger").on("submit",function (event){
+  $(".create-burgers").on("submit",function (event){
     event.preventDefault();
 
    var name = $("input#ca").val().trim();
-   var devoured = "0";
-   var newBurger = {
+   var devoured = 0;
+   var newburgers = {
      name,
         devoured
    };
 
     // send the fucking post request
-    $.ajax("/api/burger", {
+    $.ajax("/api/burgers", {
         type: "POST",
-        data: newBurger
+        data: newburgers
       }).then(
         function() {
           location.reload();
@@ -38,14 +38,14 @@ $(function(){
       );
   }); // create form
 
-  $(".delete-burger").on("click", function(event){
+  $(".delete-burgers").on("click", function(event){
       var id = $(this).data("id");
 
-      $.ajax("/api/burger/" + id, {
+      $.ajax("/api/burgers/" + id, {
         type: "DELETE",
       }).then(
         function() {
-          console.log("deleted BURGER", id);
+          console.log("deleted burgers", id);
           location.reload();
         }
       );
